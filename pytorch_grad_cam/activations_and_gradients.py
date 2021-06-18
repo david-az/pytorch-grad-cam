@@ -28,3 +28,11 @@ class ActivationsAndGradients:
         self.gradients = []
         self.activations = []        
         return self.model(x)
+
+class ActivationsAndGradientsMmdet(ActivationsAndGradients):
+    def __call__(self, x):
+        self.gradients = []
+        self.activations = []
+        x = self.model.extract_feat(x)
+        cls_score, bbox_pred = self.model.bbox_head(x)
+        return cls_score
